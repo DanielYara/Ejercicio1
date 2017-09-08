@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package parqueadero;
-import becker.robots.*;
 
 /**
  *
@@ -12,16 +11,60 @@ import becker.robots.*;
  */
 public class Seccion {
     private int seccion;
-    private Carro[] carros;
-    private int cantidadcarros = 0;
-    private Thing cosa;
+    private String[] carro;
+    private int[] avenue;
+    private int[] street;
+    private int cantidadcarros;
 
     public Seccion(int seccion) {
         this.seccion = seccion;
-        this.carros = new Carro[5];
-        this.cosa = cosa;
+        this.carro = new String[5];
+        this.avenue = new int[5];
+        this.street = new int[5];
+        this.cantidadcarros = 0;
     }
     
+    public boolean agregCarro(String placa, int x, int y){
+        if(this.cantidadcarros < 5){
+            this.carro[this.cantidadcarros] = placa;
+            this.street[this.cantidadcarros] = x;
+            this.avenue[this.cantidadcarros] = y;
+            this.cantidadcarros++;
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    public boolean sacarCarro(String placa, int seccion){
+        boolean res = false;
+        if(seccion == this.seccion){
+            for(int i = 0; i < 5; i++){
+                if(placa.equals(this.carro[i])){
+                    this.carro[i] = null;
+                    this.carro[i+1] = this.carro[i];
+                    this.carro[i+2] = this.carro[i+1];
+                    this.cantidadcarros--;
+                    res = true;
+                } else
+                    res = false;
+            }
+        } else
+            res = false;
+    return res;
+    }
+    
+    public String consSeccion(int seccion){
+        String h = null;
+        if(seccion == this.seccion){
+            for(int i = 0; i < this.cantidadcarros; i++)
+                h = (i+1) + this.carro[i];
+        }
+        else
+            h = "No hay carros en esta seccion";
+        return h;
+    }
+
     public int getSeccion() {
         return seccion;
     }
@@ -30,40 +73,32 @@ public class Seccion {
         this.seccion = seccion;
     }
     
-    public boolean addCarro(City n, String placa, int h){
-        Carro carro = new Carro(placa, cosa);
-        int d = 1;
-        if(this.cantidadcarros < 5 || d < 6){
-            this.cosa = new Thing(n, 1+d, h);
-            d++;
-            this.carros[this.cantidadcarros] = carro;
-            this.cantidadcarros++;
-            return true;
-        }
-        else
-            return false;
-    }
     
-    //public Carro sacarAuto(String placa){
-        
-        
-    //}
 
-    public Carro[] getCarros() {
-        return carros;
+    public String[] getCarro() {
+        return carro;
     }
 
-    public void setCarros(Carro[] carros) {
-        this.carros = carros;
+    public void setCarro(String[] carro) {
+        this.carro = carro;
     }
 
-    public Thing getCosa() {
-        return cosa;
+    public int[] getAvenue() {
+        return avenue;
     }
 
-    public void setCosa(Thing cosa) {
-        this.cosa = cosa;
+    public void setAvenue(int[] avenue) {
+        this.avenue = avenue;
     }
 
+    public int[] getStreet() {
+        return street;
+    }
+
+    public void setStreet(int[] street) {
+        this.street = street;
+    }
+
+    
     
 }

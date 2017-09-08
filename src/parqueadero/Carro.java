@@ -14,15 +14,14 @@ import java.util.*;
 public class Carro {
     private Calendar calendario = new GregorianCalendar();
     private String placa;
-    private Thing h;
     private int hora;
 
-    public Carro(String placa, Thing h) {
+    public Carro(String placa) {
         this.placa = placa;
-        this.h = h;
         this.hora = hora;
         this.calendario = calendario;
     }
+    
 
     public Calendar getCalendario() {
         return calendario;
@@ -37,22 +36,13 @@ public class Carro {
         this.placa = placa;
     }
 
-    public Thing getH() {
-        return h;
-    }
+    
+    
+//    
+//
+//    @Override
+//    public String toString() {
+//        return "Carro{" + "placa=" + placa + '}';
+//    }
 
-    public void setH(Thing h) {
-        this.h = h;
-    }
-    
-    
-
-    @Override
-    public String toString() {
-        return "Carro{" + "placa=" + placa + '}';
-    }
-
-    
-    
-    
 }

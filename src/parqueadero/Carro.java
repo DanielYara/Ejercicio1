@@ -14,11 +14,9 @@ import java.util.*;
 public class Carro {
     private Calendar calendario = new GregorianCalendar();
     private String placa;
-    private int hora;
 
-    public Carro(String placa) {
+    public Carro(String placa, Calendar calendario) {
         this.placa = placa;
-        this.hora = hora;
         this.calendario = calendario;
     }
     
@@ -26,8 +24,11 @@ public class Carro {
     public Calendar getCalendario() {
         return calendario;
     }
-    
 
+    public void setCalendario(Calendar calendario) {
+        this.calendario = calendario;
+    }
+    
     public String getPlaca() {
         return placa;
     }
@@ -36,8 +37,6 @@ public class Carro {
         this.placa = placa;
     }
 
-    
-    
 //    
 //
 //    @Override

@@ -5,7 +5,7 @@
  */
 
 package parqueadero;
-import becker.robots.*;
+import java.util.*;
 
 /**
  *
@@ -17,8 +17,6 @@ public class Parqueadero {
     private Carro[] carro;
     private int cantcarros;
     private String placa;
-    private int[] x;
-    private int[] y;
 
     public Parqueadero(String parqueadero) {
         this.parqueadero = parqueadero;
@@ -28,32 +26,56 @@ public class Parqueadero {
         this.carro = new Carro[15];
         this.cantcarros = 0;
         this.placa = placa;
-        this.x = new int[15];
-        this.y = new int[15];
     }
     
-    public void addCar(String placa, City b, int x, int y){
+    public void addCar(String placa, Calendar c){
         if(this.cantcarros < 15){
             for (int i = 0; i < 3; i++) {
-                if(this.seccion[i].agregCarro(placa, x, y) == true){
-                    this.carro[cantcarros] = new Carro(placa);
-                    this.x[cantcarros]=x;
-                    this.y[cantcarros]=y;
+                if(this.seccion[i].agregCarro(placa) == true){
+                    this.carro[cantcarros] = new Carro(placa, c);
                 }
             }
         this.cantcarros++;
         } else
             this.placa = null;
     }
-        
-    public boolean quitCar(String placa, int seccion){
-        boolean resp = false;
+    
+    private String encontrarCarro(String placa){
+        String str = new String();
         for(int i = 0; i < 3; i++){
-            if(this.seccion[i].sacarCarro(placa, seccion) == true)
-                resp = true;
+            for(int k = 0; k < 5; k++){
+                if(placa.equals(this.seccion[i].getCarro()[k])){
+                    str = String.valueOf(i) + " " +  String.valueOf(k);
+                }
+            }
         }
+        return str;
+    }
+    
+    public boolean quitCar(String placa, int seccion){
+        Seccion aux;
+        boolean resp = false;
+        String s = encontrarCarro(placa);
+        String[] a = s.split(" ");
+        int y = Integer.parseInt(a[0]);
+        int x = Integer.parseInt(a[1]);
+        if(s != null && this.seccion[y].getSeccion() == seccion){
+           aux = this.seccion[y];
+           if(x == 4 || aux.getCantidadcarros() == (x - 1))
+               aux.getCarro()[x] = null;
+           else{
+               aux.getCarro()[x] = null;
+               while((x+1) < aux.getCantidadcarros()){
+                   aux.getCarro()[x+1] = aux.getCarro()[x];
+               }
+           }
+           resp = true;
+        }
+        else
+            resp = false;
         return resp;
     }
+    
     
     public String searchSection(int seccion){
         String resultado = null;
@@ -63,6 +85,14 @@ public class Parqueadero {
         return resultado;
     }
     
+    public Calendar horaEntrada(String placa){
+        Calendar dev = null;
+        for(int i = 0; i < 15; i++){
+            if(placa.equals(this.carro[i].getPlaca()))
+                dev = this.carro[i].getCalendario();
+        }
+        return dev;
+    }
     
     public Seccion[] getSeccion() {
         return seccion;
@@ -95,22 +125,5 @@ public class Parqueadero {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-
-    public int[] getX() {
-        return x;
-    }
-
-    public void setX(int[] x) {
-        this.x = x;
-    }
-
-    public int[] getY() {
-        return y;
-    }
-
-    public void setY(int[] y) {
-        this.y = y;
-    }
-      
     
 }

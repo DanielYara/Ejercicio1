@@ -9,7 +9,8 @@ import java.util.*;
 
 /**
  *
- * @author Daniel y Cielo
+ * @author Jose Daniel Yara Sepulveda
+ * @author Oscar Porras Junco
  */
 public class Carro {
     private Calendar calendario = new GregorianCalendar();

@@ -7,7 +7,8 @@ package parqueadero;
 
 /**
  *
- * @author Daniel y Cielo
+ * @author Jose Daniel Yara Sepulveda
+ * @author Oscar Porras Junco
  */
 public class Seccion {
     private int seccion;
